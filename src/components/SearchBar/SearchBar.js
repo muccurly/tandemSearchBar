@@ -1,6 +1,7 @@
 import React,{useState,useRef} from 'react'
 import {TextInput,Text, View,Easing, Keyboard,TouchableOpacity,Animated} from 'react-native'
 import {styles} from './styles'
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const SearchBar=(props)=>{
   const [valueSearch,setValueSearch] = useState('');
@@ -35,7 +36,7 @@ export const SearchBar=(props)=>{
         width:widthVal,        
       };
     return(
-        <View style={styles.container} >
+    <SafeAreaView  style={styles.containerSafeAreaView}>
             {isFocused?(
                 <Animated.View style={[styles.content,animStyle]}>   
                     <TextInput 
@@ -58,6 +59,6 @@ export const SearchBar=(props)=>{
                 </TouchableOpacity>
             </View>
             }          
-        </View>
+    </SafeAreaView>
     )
 }

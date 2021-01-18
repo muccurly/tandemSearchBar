@@ -4,7 +4,10 @@ import {StyleSheet} from 'react-native'
 
 export const styles = StyleSheet.create({
     content:{
-        flexDirection:'row',justifyContent:'space-between', width:'100%',alignItems:'center'
+        flexDirection:'row',
+        justifyContent:'space-between',
+       width:'100%',
+       alignItems:'center'
     },
     searchHeader:{
         paddingLeft:40,
@@ -31,6 +34,13 @@ export const styles = StyleSheet.create({
         color:'blue',
         fontWeight:'300',
     },
-    container:{flexDirection:'row',flex:1,justifyContent:'flex-end'}
-
+    containerSafeAreaView:{
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        alignItems:'center',
+        padding:10,
+        borderBottomWidth:1,
+        borderBottomColor:'#D5DADC',
+        backgroundColor:'#FFFFFF'
+      },
 })

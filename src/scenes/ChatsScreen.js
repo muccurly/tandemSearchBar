@@ -4,18 +4,17 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {SearchBar} from '../components/SearchBar/SearchBar'
 
 export default function ChatsScreen({navigation}){
-        const [state,setData] = useState({data:[],searchTxt:''})
+        const [searchTxt,setSearchTxt] = useState('')
     
         const onSearchChange =(e)=>{
-            setData({data:state.data,searchTxt:e})            
+            console.log(e);
+             setSearchTxt(e);          
         }
         
         React.useLayoutEffect(()=>{
             navigation.setOptions({
             header:()=>(
-            <SafeAreaView  style={styles.containerSafeAreaView}>
                 <SearchBar onChange={(text)=> onSearchChange(text)} />
-            </SafeAreaView>
             )
             })
         },[navigation])
@@ -30,16 +29,7 @@ const styles= StyleSheet.create({
     container:{
         paddingTop:10,
         backgroundColor:'#FFFFFF',
-    },
-    containerSafeAreaView:{
-        flexDirection:'row',
-        justifyContent:'space-around',
-        alignItems:'center',
-        padding:10,
-        borderBottomWidth:1,
-        borderBottomColor:'#D5DADC',
-        backgroundColor:'#FFFFFF'
-      },
+    }
 })
 
 
