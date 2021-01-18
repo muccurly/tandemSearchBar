@@ -28,7 +28,7 @@ export const SearchBar=(props)=>{
     }
     const widthVal = animation.interpolate({
         inputRange: [0, 1],
-        outputRange: ['40%','100%'],
+        outputRange: ['0%','100%'],
       });
     
       const animStyle = {
