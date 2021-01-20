@@ -38,8 +38,9 @@ export const SearchBar=(props)=>{
     return(
     <SafeAreaView  style={styles.containerSafeAreaView}>
             {isFocused?(
-                <Animated.View style={[styles.content,animStyle]}>   
-                    <TextInput 
+                <Animated.View  style={[styles.content,animStyle]}>
+                    <TextInput
+
                             placeholderTextColor='#5465FF'           
                             placeholder='Search Chats'
                             style={styles.searchHeader}
@@ -58,6 +59,7 @@ export const SearchBar=(props)=>{
                     <View  style={styles.search_icon_box}   />
                 </TouchableOpacity>
             </View>
+
             }          
     </SafeAreaView>
     )
