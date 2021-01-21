@@ -14,7 +14,7 @@ const ChatsStackScreen=()=>{
     <SafeAreaProvider>
         <NavigationContainer>
             <ChatStack.Navigator>
-                <ChatStack.Screen name='Chats' component={FakeListUsers}/>
+                <ChatStack.Screen name='Chats' component={EventsScreen}/>
             </ChatStack.Navigator>
         </NavigationContainer>
     </SafeAreaProvider>

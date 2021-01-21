@@ -4,7 +4,6 @@ import {View,Text,Alert} from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function RemaningTime(props){
-
     const [timer,setTimer] = useState('')
     const [valueOfProgg,setValueOfProgg] = useState(0)
     const [MAX_POINTS,setMaxPoints] = useState(60);
@@ -19,24 +18,10 @@ export default function RemaningTime(props){
             return Math.trunc(unitOfTimeValue.asDays())+'d'
         }
         else if(unitOfTimeValue.asMinutes()>1){
-            if(Math.trunc(unitOfTimeValue.asMinutes())<=30){
-                setBorderColor('#0AD8D8')
+            if(unitOfTimeValue.asMinutes()<=30){
                 setMaxPoints(60);
-                Alert.alert(
-                    "Alert Title",
-                    "My Alert Msg",
-                    [
-                        {
-                            text: "Cancel",
-                            onPress: () => console.log("Cancel Pressed"),
-                            style: "cancel"
-                        },
-                        { text: "OK", onPress: () => console.log("OK Pressed") }
-                    ],
-                    { cancelable: false }
-                );
-                console.log(unitOfTimeValue.asMinutes())
-                return Math.trunc(unitOfTimeValue.asMinutes())+'m'
+                setBorderColor('#0AD8D8')                
+                return Math.round(unitOfTimeValue.asMinutes())+'m'
             }
             else{
                 setMaxPoints(28.2)
@@ -51,12 +36,13 @@ export default function RemaningTime(props){
         }
         else
             return 'no'
+
     }
 
 
     useEffect(()=>{
         const clockCall = setInterval(()=>{
-            const timeOfEvent = props.date;
+            const timeOfEvent = props.timestamp;
             const diffTime = getPrettyTime(timeOfEvent)
             const fill = MAX_POINTS=== 28.2? ((parseInt(diffTime)/MAX_POINTS)+50): ((parseInt(diffTime)/MAX_POINTS)*100)
             const time = MAX_POINTS=== 28.2? Math.round(parseInt(diffTime)/60)+'h' : diffTime;
@@ -66,7 +52,7 @@ export default function RemaningTime(props){
         return()=>{
             clearInterval(clockCall);
         }
-    },[timer])
+    },[timer,MAX_POINTS])
 
     return(
         <View style={{alignItems:'flex-start'}}>
@@ -83,6 +69,6 @@ export default function RemaningTime(props){
                     fontSize: 16}}>{timer}</Text>
                     )}
                     />
-                    </View>
+                </View>
     )
 }

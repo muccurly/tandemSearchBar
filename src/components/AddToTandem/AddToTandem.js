@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FlatList,StyleSheet, SafeAreaView,View, TextInput, Text, TouchableOpacity } from "react-native";
-import { multiply } from "react-native-reanimated";
 
 const AddToTandem = (props)=>{
     const{users} = props;
