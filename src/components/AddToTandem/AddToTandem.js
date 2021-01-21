@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FlatList,StyleSheet, SafeAreaView,View, TextInput, Text, TouchableOpacity } from "react-native";
+import { multiply } from "react-native-reanimated";
 
 const AddToTandem = (props)=>{
     const{users} = props;
@@ -9,23 +10,25 @@ const AddToTandem = (props)=>{
             <Text style={styles.text} >
                 To:
             </Text>
-            <View style={{ flexDirection:'row',flexWrap:'wrap',maxWidth:'80%'}}>
-                {users.map((item,index)=>{
-                    return(
-                        <TouchableOpacity
-                          onPress={()=>props.onDeleteUser(item.id)} 
-                          key={index} 
-                          style={styles.userNameContainer} >
-                            <Text style={styles.textUserName}>{item.username}</Text>
-                        </TouchableOpacity>
-                    )
-                })}
+                <View style={{ flexDirection:'row',flexWrap:'wrap',flex:1}}>
+                    {users.map((item,index)=>{
+                        return(
+                            <TouchableOpacity
+                            onPress={()=>props.onDeleteUser(item.id)}
+                            key={index}
+                            style={styles.userNameContainer} >
+                                <Text style={styles.textUserName}>{item.username}</Text>
+                            </TouchableOpacity>
+                        )
+                    })}
             <TextInput
+                placeholder = 'Search'
                 value={valueSearch}
                 onChangeText={(e)=>setValueSearch(e)}
-                style={{flex:1}}
+                style={{flex:1,minWidth:'40%'}}
                 />
-            </View>
+                </View>
+      
         </View>
     )
 }

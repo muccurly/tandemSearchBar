@@ -40,7 +40,6 @@ export const SearchBar=(props)=>{
             {isFocused?(
                 <Animated.View  style={[styles.content,animStyle]}>
                     <TextInput
-
                             placeholderTextColor='#5465FF'           
                             placeholder='Search Chats'
                             style={styles.searchHeader}

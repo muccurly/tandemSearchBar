@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React,{useState,useEffect} from 'react'
-import {View,Text} from 'react-native'
+import {View,Text,Alert} from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function RemaningTime(props){
@@ -15,18 +15,34 @@ export default function RemaningTime(props){
         const unitOfTimeValue = moment.duration(whenHappenMoment.diff(moment()))
         if(unitOfTimeValue.asDays()>1){
             setBorderColor('#5465FF')
-            setMaxPoints(1);
+            setMaxPoints(0);
             return Math.trunc(unitOfTimeValue.asDays())+'d'
         }
-        else if(unitOfTimeValue.asHours()>1){
-            setBorderColor('#5465FF')
-            setMaxPoints(24);
-            return Math.trunc(unitOfTimeValue.asHours())+'h'
-        }
         else if(unitOfTimeValue.asMinutes()>1){
-            setMaxPoints(60);
-            setBorderColor('#0AD8D8')
-            return Math.trunc(unitOfTimeValue.asMinutes())+'m'
+            if(Math.trunc(unitOfTimeValue.asMinutes())<=30){
+                setBorderColor('#0AD8D8')
+                setMaxPoints(60);
+                Alert.alert(
+                    "Alert Title",
+                    "My Alert Msg",
+                    [
+                        {
+                            text: "Cancel",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                        },
+                        { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ],
+                    { cancelable: false }
+                );
+                console.log(unitOfTimeValue.asMinutes())
+                return Math.trunc(unitOfTimeValue.asMinutes())+'m'
+            }
+            else{
+                setMaxPoints(28.2)
+                setBorderColor('#5465FF')
+                return Math.trunc(unitOfTimeValue.asMinutes())+'h'
+            }
         }
         else if (unitOfTimeValue.asSeconds() >1){
             setMaxPoints(60);
@@ -41,9 +57,10 @@ export default function RemaningTime(props){
     useEffect(()=>{
         const clockCall = setInterval(()=>{
             const timeOfEvent = props.date;
-            let diffTime = getPrettyTime(timeOfEvent)
-            setTimer(diffTime)
-            let fill = (parseInt(diffTime)/MAX_POINTS)*100
+            const diffTime = getPrettyTime(timeOfEvent)
+            const fill = MAX_POINTS=== 28.2? ((parseInt(diffTime)/MAX_POINTS)+50): ((parseInt(diffTime)/MAX_POINTS)*100)
+            const time = MAX_POINTS=== 28.2? Math.round(parseInt(diffTime)/60)+'h' : diffTime;
+            setTimer(time)
             setValueOfProgg(fill);
         },1000)
         return()=>{

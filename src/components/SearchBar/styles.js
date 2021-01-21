@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     content:{
         flexDirection:'row',
         justifyContent:'space-between',
-       width:'100%',
+        width:'100%',
        alignItems:'center'
     },
     searchHeader:{
