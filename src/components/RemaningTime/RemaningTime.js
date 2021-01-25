@@ -13,21 +13,31 @@ export default function RemaningTime(props){
     const getPrettyTime=(whenHappenTimeStamp)=>{
         const whenHappenMoment = moment(whenHappenTimeStamp)
         const unitOfTimeValue = moment.duration(whenHappenMoment.diff(moment()))
-        if(unitOfTimeValue.asDays()>1){
+        if(unitOfTimeValue.asYears()>=1){
+            setBorderColor('#5465FF')
+            setMaxPoints(0);
+            return Math.trunc(unitOfTimeValue.asYears())+'y'
+        }
+        else if(unitOfTimeValue.asWeeks()>=4){
+            setBorderColor('#5465FF')
+            setMaxPoints(0);
+            return Math.trunc(unitOfTimeValue.asWeeks())+'w'
+        }else if(unitOfTimeValue.asDays()>1){
             setBorderColor('#5465FF')
             setMaxPoints(0);
             return Math.trunc(unitOfTimeValue.asDays())+'d'
         }
-
         else if(unitOfTimeValue.asMinutes()>1){
-            if(unitOfTimeValue.asMinutes()<=30){
+            if(Math.floor(unitOfTimeValue.asMinutes())<=30){
                 setMaxPoints(60);
                 setBorderColor('#0AD8D8')                
-                return Math.round(unitOfTimeValue.asMinutes())+'m'
+                return Math.trunc(unitOfTimeValue.asMinutes())+'m'
             }
             else{
                 setMaxPoints(28.2)
                 setBorderColor('#5465FF')
+                if(unitOfTimeValue.asMinutes()<60)
+                    return Math.round(unitOfTimeValue.asMinutes())+'m'
                 return Math.trunc(unitOfTimeValue.asMinutes())+'h'
             }
         }
@@ -50,7 +60,7 @@ export default function RemaningTime(props){
                 const timeOfEvent = props.timestamp;
                 const diffTime = getPrettyTime(timeOfEvent)
                 const fill = MAX_POINTS=== 28.2? ((parseInt(diffTime)/MAX_POINTS)+50): ((parseInt(diffTime)/MAX_POINTS)*100)
-                const time = MAX_POINTS=== 28.2? Math.round(parseInt(diffTime)/60)+'h' : diffTime;
+                const time = diffTime.indexOf('h')>-1? Math.round(parseInt(diffTime)/60)+'h' : diffTime;
                 setTimerText(time)
                 setValueOfProgg(fill);
             },1000)
@@ -58,7 +68,7 @@ export default function RemaningTime(props){
         return()=>{
             clearInterval(clockCall);
         }
-    },[timerText,MAX_POINTS])
+    },[timerText,MAX_POINTS,borderColor])
 
     return(
         <View style={{alignItems:'flex-start'}}>
