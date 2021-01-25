@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React,{useState,useEffect} from 'react'
-import {View,Text,Alert} from 'react-native'
+import {View,Text} from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function RemaningTime(props){
@@ -36,10 +36,6 @@ export default function RemaningTime(props){
             return Math.trunc(unitOfTimeValue.asSeconds())+'s'
         }
         else
-            Alert.alert(
-                'end',
-                'end'
-            )
         setIsTimerWork(false);
             return 'no'
 
