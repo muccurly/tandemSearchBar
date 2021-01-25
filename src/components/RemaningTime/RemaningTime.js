@@ -4,9 +4,10 @@ import {View,Text,Alert} from 'react-native'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function RemaningTime(props){
-    const [timer,setTimer] = useState('')
+    const [timerText,setTimerText] = useState('')
+    const [isTimerWork,setIsTimerWork] = useState(true);
     const [valueOfProgg,setValueOfProgg] = useState(0)
-    const [MAX_POINTS,setMaxPoints] = useState(60);
+    const [MAX_POINTS,setMaxPoints] = useState(28.2);
     const [borderColor,setBorderColor] = useState('#F4030E')
 
     const getPrettyTime=(whenHappenTimeStamp)=>{
@@ -35,24 +36,32 @@ export default function RemaningTime(props){
             return Math.trunc(unitOfTimeValue.asSeconds())+'s'
         }
         else
+            Alert.alert(
+                'end',
+                'end'
+            )
+        setIsTimerWork(false);
             return 'no'
 
     }
 
 
     useEffect(()=>{
-        const clockCall = setInterval(()=>{
-            const timeOfEvent = props.timestamp;
-            const diffTime = getPrettyTime(timeOfEvent)
-            const fill = MAX_POINTS=== 28.2? ((parseInt(diffTime)/MAX_POINTS)+50): ((parseInt(diffTime)/MAX_POINTS)*100)
-            const time = MAX_POINTS=== 28.2? Math.round(parseInt(diffTime)/60)+'h' : diffTime;
-            setTimer(time)
-            setValueOfProgg(fill);
-        },1000)
+        let clockCall;
+        if(isTimerWork){
+                clockCall = setInterval(()=>{
+                const timeOfEvent = props.timestamp;
+                const diffTime = getPrettyTime(timeOfEvent)
+                const fill = MAX_POINTS=== 28.2? ((parseInt(diffTime)/MAX_POINTS)+50): ((parseInt(diffTime)/MAX_POINTS)*100)
+                const time = MAX_POINTS=== 28.2? Math.round(parseInt(diffTime)/60)+'h' : diffTime;
+                setTimerText(time)
+                setValueOfProgg(fill);
+            },1000)
+        }
         return()=>{
             clearInterval(clockCall);
         }
-    },[timer,MAX_POINTS])
+    },[timerText,MAX_POINTS])
 
     return(
         <View style={{alignItems:'flex-start'}}>
@@ -66,7 +75,7 @@ export default function RemaningTime(props){
                 childrenContainerStyle={{backgroundColor:'black',transform: [{ scaleX: -1 }] }}
                 children={()=>(
                     <Text style={{color:'white',fontWeight: '700',
-                    fontSize: 16}}>{timer}</Text>
+                    fontSize: 16}}>{timerText}</Text>
                     )}
                     />
                 </View>
