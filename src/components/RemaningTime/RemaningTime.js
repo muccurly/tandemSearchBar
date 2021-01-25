@@ -18,6 +18,7 @@ export default function RemaningTime(props){
             setMaxPoints(0);
             return Math.trunc(unitOfTimeValue.asDays())+'d'
         }
+
         else if(unitOfTimeValue.asMinutes()>1){
             if(unitOfTimeValue.asMinutes()<=30){
                 setMaxPoints(60);
