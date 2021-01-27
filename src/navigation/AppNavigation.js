@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 import React from 'react'
-import EventsScreen from '../scenes/EventsScreen'
+import EventsScreen from '../components/RemainingTime/EventsScreen'
 import ChatsScreen from '../scenes/ChatsScreen'
 import FakeListUsers from '../components/AddToTandem/FakeListUsers'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
